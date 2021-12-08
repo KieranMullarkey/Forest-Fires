@@ -1,0 +1,77 @@
+---
+title: "Forest Fires in Portugal"
+output:
+  html_document: default
+---
+
+1. This information includes data regarding forest fires in the Northeast region of Portugal. The data uses meteorological and other data with the hopes of finding trends to better prepare for forest fires in this region.  This information was taken from . 
+
+2.
+
+3.
+
+4.
+
+5.
+
+```{r}
+forestfires$month <- as.numeric(as.factor(forestfires$month))
+forestfires$day <- as.numeric(as.factor(forestfires$day))
+head(forestfires,5)
+```
+
+
+# Required Descriptive Statistics
+```{r, echo=TRUE}
+forestfires$month <- as.numeric(as.factor(forestfires$month))
+forestfires$day <- as.numeric(as.factor(forestfires$day))
+summary(forestfires)
+```
+
+Running this code below simply verifies that there are in fact 517 observations and 13 variables which match up to the data documentation for the dataset (12 predictors plus an area outcome).
+
+```{r}
+# Number of data cases and variables
+dim(forestfires)
+```
+The FFMC stands for Fine Fuel Moisture Code and is a calculation of the potential fuel moisture of forest litter which increases the chance of forest fires. In short, the higher the FFMC rating, the drier the climate thus the more susceptable that region is to forest fires...which we are trying to prevent!
+```{r}
+par(mfrow=c(1,2),mar=c(5, 4.25, 5.5, 2))
+d <- density(forestfires$FFMC)
+plot(d,main="FFMC Density (original)",xlab="FFMC index", col='tomato', lwd=3)
+forestfires$FFMC<- (forestfires$FFMC^3)
+d <- density(forestfires$FFMC)
+plot(d,main="FFMC Density (x^3)",xlab="FFMC index", col='tomato', lwd=3)
+```
+
+
+Since the data is skewed, we can normalize it with the below code. 
+
+```{r}
+par(mfrow=c(1,2),mar=c(5, 4.25, 5.5, 2))
+d <- density(forestfires$FFMC)
+plot(d,main="FFMC Density (original)",xlab="FFMC index", col='tomato', lwd=3)
+forestfires$FFMC<- (forestfires$FFMC^3)
+d <- density(forestfires$FFMC)
+plot(d,main="FFMC Density (x^3)",xlab="FFMC index", col='tomato', lwd=3)
+```
+
+
+
+
+
+
+
+```{r}
+par(mfrow=c(1,2),mar=c(5, 4.25, 5.5, 2))
+  d <- density(forestfires$area)
+  plot(d,main="Area Burned Density (original)",xlab="Area Burned (Hec)", col='tomato', lwd=3)
+  d <- density(log(forestfires$area+1))
+  plot(d,main="Area Burned Density (log(x+1))",xlab="Area Burned (Hec)", col='tomato', lwd=3)
+```
+
+
+
+
+
+
